@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FormData, CINEMATIC_EASE } from '../../types';
 import { InputField, ActionButton, ProgressBar } from '../UI/Controls';
 import { playSound } from '../../lib/sounds';
+import { useStore } from '../../store/useStore';
 
 interface QuestionPanelProps {
   formData: FormData;
@@ -12,7 +13,11 @@ interface QuestionPanelProps {
 
 export const QuestionPanel = ({ formData, onChange, onComplete }: QuestionPanelProps) => {
   const [step, setStep] = useState(0);
-  const [consent, setConsent] = useState(false);
+  const setScene = useStore(state => state.setScene);
+  const consent = formData.privacyConsent || false;
+  const setConsent = (val: boolean) => onChange({ privacyConsent: val });
+  const marketingConsent = formData.marketingConsent || false;
+  const setMarketingConsent = (val: boolean) => onChange({ marketingConsent: val });
 
   const steps = [
     {
@@ -41,8 +46,9 @@ export const QuestionPanel = ({ formData, onChange, onComplete }: QuestionPanelP
             onChange={(v: string) => onChange({ phone: v })}
           />
           
-          {/* Privacy Consent Checkbox (Canada PIPEDA Compliance) */}
-          <div className="space-y-3 pt-2">
+          {/* Privacy Consent Checkboxes (PIPEDA & CASL Compliance) */}
+          <div className="space-y-4 pt-2">
+            {/* Mandatory PIPEDA Consent */}
             <div className="flex items-start gap-3">
               <input
                 type="checkbox"
@@ -52,15 +58,42 @@ export const QuestionPanel = ({ formData, onChange, onComplete }: QuestionPanelP
                   setConsent(e.target.checked);
                   playSound('selection');
                 }}
-                className="mt-1 cursor-pointer w-4 h-4 rounded-sm border-white/20 bg-white/5 checked:bg-brand-cyan checked:border-brand-cyan focus:ring-0 focus:ring-offset-0 text-brand-cyan"
+                className="mt-1 cursor-pointer w-4 h-4 rounded-sm border-white/20 bg-white/5 checked:bg-brand-cyan checked:border-brand-cyan focus:ring-0 focus:ring-offset-0 text-brand-cyan shrink-0"
               />
               <label htmlFor="consent-check" className="text-[11px] text-white/50 leading-normal cursor-pointer select-none">
-                I consent to Drive Arc collecting and processing my contact and financial details to evaluate my pre-approval limit, as outlined in the <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-brand-cyan hover:underline">Privacy Policy</a>.
+                I consent to <strong>17421745 Canada Ltd.</strong> (operating as Drive Arc) collecting, storing, and processing my details to estimate my auto financing pre-approval limit, as outlined in the{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setScene('PRIVACY');
+                    window.history.pushState({}, '', '/privacy');
+                  }}
+                  className="text-brand-cyan hover:underline bg-transparent border-0 p-0 inline font-inherit cursor-pointer text-left align-baseline"
+                >
+                  Privacy Policy
+                </button>.
+              </label>
+            </div>
+
+            {/* Optional CASL Consent */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="marketing-consent-check"
+                checked={marketingConsent}
+                onChange={(e) => {
+                  setMarketingConsent(e.target.checked);
+                  playSound('selection');
+                }}
+                className="mt-1 cursor-pointer w-4 h-4 rounded-sm border-white/20 bg-white/5 checked:bg-brand-cyan checked:border-brand-cyan focus:ring-0 focus:ring-offset-0 text-brand-cyan shrink-0"
+              />
+              <label htmlFor="marketing-consent-check" className="text-[11px] text-white/40 leading-normal cursor-pointer select-none">
+                [Optional] I consent to receive promotional emails, text messages, and updates from Drive Arc and <strong>17421745 Canada Ltd.</strong> regarding auto financing programs. I can unsubscribe at any time.
               </label>
             </div>
             
             <p className="text-[10px] text-white/30 italic leading-relaxed pl-7">
-              Notice: To help you if you get disconnected, we securely save your progress as you fill out each step.
+              Notice: To help you if you get disconnected, we securely save your progress under PIPEDA consent guidelines.
             </p>
           </div>
         </div>
@@ -388,14 +421,15 @@ export const QuestionPanel = ({ formData, onChange, onComplete }: QuestionPanelP
 
               <div className="mt-12 pt-6 flex items-center justify-between text-[9px] font-mono border-t border-white/5">
                 <span className="opacity-10 tracking-widest">COORD_LAT: {34.0522 + (step * 2.5)}</span>
-                <a 
-                  href="/privacy" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-white/20 hover:text-white/60 transition-colors uppercase tracking-widest"
+                <button 
+                  onClick={() => {
+                    setScene('PRIVACY');
+                    window.history.pushState({}, '', '/privacy');
+                  }}
+                  className="text-white/20 hover:text-white/60 transition-colors uppercase tracking-widest bg-transparent border-0 p-0 cursor-pointer font-mono text-[9px]"
                 >
                   Privacy Policy // PIPEDA
-                </a>
+                </button>
               </div>
             </motion.div>
           </AnimatePresence>

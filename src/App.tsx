@@ -11,6 +11,8 @@ import { CatalogScreen } from './components/Scene/CatalogScreen';
 import { VehicleScene } from './components/3D/VehicleScene';
 import { trackEvent, TRACK_EVENTS } from './lib/analytics';
 import { AdminDashboard } from './components/Scene/AdminDashboard';
+import { PrivacyScreen } from './components/Scene/PrivacyScreen';
+import { CookieConsent } from './components/UI/CookieConsent';
 
 import { Header } from './components/UI/Header';
 
@@ -25,6 +27,8 @@ export default function App() {
   useEffect(() => {
     if (window.location.pathname === '/admin') {
       setScene('ADMIN');
+    } else if (window.location.pathname === '/privacy') {
+      setScene('PRIVACY');
     }
   }, [setScene]);
 
@@ -199,8 +203,18 @@ export default function App() {
               window.history.pushState({}, '', '/');
             }}
           />
+        ) : scene === 'PRIVACY' ? (
+          <PrivacyScreen
+            key="privacy"
+            onClose={() => {
+              setScene('VEHICLE_SELECTOR');
+              window.history.pushState({}, '', '/');
+            }}
+          />
         ) : null}
       </AnimatePresence>
+
+      <CookieConsent />
     </div>
   );
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type Scene = 'ENTRY' | 'VEHICLE_SELECTOR' | 'QUESTION_FLOW' | 'PROCESSING' | 'RESULT' | 'CATALOG' | 'ADMIN';
+export type Scene = 'ENTRY' | 'VEHICLE_SELECTOR' | 'QUESTION_FLOW' | 'PROCESSING' | 'RESULT' | 'CATALOG' | 'ADMIN' | 'PRIVACY';
 
 export interface FormData {
   vehicle: string;
@@ -19,6 +19,8 @@ export interface FormData {
   downPayment: string;
   selectedModel?: string;
   selectedModelYear?: number;
+  marketingConsent?: boolean;
+  privacyConsent?: boolean;
 }
 
 export type ApprovalStatus = 'PENDING' | 'APPROVED' | 'CONDITIONAL' | 'REVIEW';
@@ -46,6 +48,8 @@ export const INITIAL_FORM_DATA: FormData = {
   monthlyDebt: '0',
   housingStatus: 'rent',
   downPayment: '0',
+  marketingConsent: false,
+  privacyConsent: false,
 };
 
 export const VEHICLE_TYPES = [

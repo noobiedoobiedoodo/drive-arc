@@ -4,6 +4,7 @@ import { VEHICLE_TYPES, CINEMATIC_EASE } from '../../types';
 import { ActionButton } from '../UI/Controls';
 import { ChevronLeft, ChevronRight, Share2 } from 'lucide-react';
 import { playSound } from '../../lib/sounds';
+import { useStore } from '../../store/useStore';
 
 interface VehicleSelectorProps {
   currentVehicleIndex: number;
@@ -13,6 +14,7 @@ interface VehicleSelectorProps {
 
 export const VehiclePickerView = ({ currentVehicleIndex, onSelect, onConfirm }: VehicleSelectorProps) => {
   const current = VEHICLE_TYPES[currentVehicleIndex];
+  const setScene = useStore(state => state.setScene);
 
   const handleNext = () => {
     onSelect((currentVehicleIndex + 1) % VEHICLE_TYPES.length);
@@ -23,7 +25,7 @@ export const VehiclePickerView = ({ currentVehicleIndex, onSelect, onConfirm }: 
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-end pb-32 px-6 z-10">
+    <div className="absolute inset-0 flex flex-col items-center justify-end pb-20 md:pb-24 px-6 z-10">
       {/* Live System Sync Badge */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
@@ -95,6 +97,22 @@ export const VehiclePickerView = ({ currentVehicleIndex, onSelect, onConfirm }: 
         >
           <div className="absolute inset-0 bg-brand-cyan/0 group-hover:bg-brand-cyan/5 transition-colors" />
           <ChevronRight className="w-6 h-6 md:w-10 md:h-10 text-white/20 group-hover:text-brand-cyan transition-colors" />
+        </button>
+      </div>
+
+      {/* Showroom Legal Footer */}
+      <div className="mt-8 text-[9px] md:text-[10px] font-mono tracking-[0.15em] text-white/20 flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 relative z-20 pointer-events-auto">
+        <span>© 2026 17421745 Canada Ltd. dba Drive Arc</span>
+        <span className="hidden sm:inline opacity-30">|</span>
+        <button
+          onClick={() => {
+            playSound('selection');
+            setScene('PRIVACY');
+            window.history.pushState({}, '', '/privacy');
+          }}
+          className="text-brand-cyan hover:underline bg-transparent border-0 p-0 cursor-pointer text-[9px] md:text-[10px] font-mono tracking-[0.15em] uppercase font-bold"
+        >
+          Privacy Policy
         </button>
       </div>
     </div>

@@ -24,6 +24,8 @@ interface Lead {
   monthlyEstimate?: number;
   status: 'NEW' | 'CONTACTED' | 'UNDERWRITTEN' | 'CLOSED';
   createdAt: string;
+  marketingConsent?: boolean;
+  privacyConsent?: boolean;
 }
 
 export const AdminDashboard = ({ onClose }: { onClose: () => void }) => {
@@ -318,6 +320,11 @@ export const AdminDashboard = ({ onClose }: { onClose: () => void }) => {
           <h1 className="text-3xl md:text-4xl font-display font-medium uppercase tracking-tight">
             Underwriting Dashboard
           </h1>
+          <div className="flex flex-wrap items-center gap-2.5 mt-1 text-[9px] tracking-wider uppercase font-mono">
+            <span className="text-white/30">Custodian: 17421745 Canada Ltd.</span>
+            <span className="text-white/10">•</span>
+            <span className="text-brand-cyan/80">PIPEDA Compliant Data Mode</span>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -517,6 +524,19 @@ export const AdminDashboard = ({ onClose }: { onClose: () => void }) => {
                               <div>
                                 <p className="text-white/30 uppercase text-[9px]">Housing Status</p>
                                 <p className="text-white/80 uppercase">{l.housingStatus?.replace(/_/g, ' ')}</p>
+                              </div>
+                              <div>
+                                <p className="text-white/30 uppercase text-[9px]">Regulatory Consent</p>
+                                <div className="space-y-1 mt-1 font-sans">
+                                  <div className="flex items-center gap-1.5 text-[10px]">
+                                    <div className={`w-1.5 h-1.5 rounded-full ${l.privacyConsent !== false ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.5)]' : 'bg-red-400'}`} />
+                                    <span className="text-white/70">PIPEDA: {l.privacyConsent !== false ? 'CONSENTED' : 'NONE'}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1.5 text-[10px]">
+                                    <div className={`w-1.5 h-1.5 rounded-full ${l.marketingConsent ? 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.5)]' : 'bg-white/20'}`} />
+                                    <span className="text-white/50">CASL Marketing: {l.marketingConsent ? 'OPT-IN' : 'OPT-OUT'}</span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>

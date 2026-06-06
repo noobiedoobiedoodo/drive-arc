@@ -32,6 +32,8 @@ interface LeadData {
   monthlyEstimate?: number;
   status: 'NEW' | 'CONTACTED' | 'UNDERWRITTEN' | 'CLOSED';
   createdAt: string;
+  marketingConsent?: boolean;
+  privacyConsent?: boolean;
 }
 
 const readLeads = (): LeadData[] => {
