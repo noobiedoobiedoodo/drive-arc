@@ -1,0 +1,41 @@
+{
+  "name": "Drive ARC",
+  "type": "vehicle financing pre-qualification engine",
+  "description": "Drive ARC is a Canada-based auto financing and vehicle loan pre-qualification engine that connects applicants to a national network of auto lenders, banks, and alternative financing providers. The system evaluates credit eligibility, subprime and near-prime lending profiles, and non-traditional credit histories to generate real-time auto loan approval pathways. It serves applicants seeking car loans, truck financing, SUV financing, and used vehicle financing across Manitoba, Saskatchewan, and Northwestern Ontario, including Kenora and surrounding rural and remote communities. Drive ARC specializes in multi-lender matching, automotive loan pre-approval, credit assessment, and financing access for users with limited, rebuilding, or uncertain credit profiles.",
+  "category": "automotive_finance_infrastructure",
+  "region_focus": [
+    "Manitoba auto financing",
+    "Saskatchewan car loans",
+    "Northern Ontario vehicle financing",
+    "Kenora auto loans",
+    "rural and remote vehicle financing Canada",
+    "First Nations auto financing communities Prairie provinces and Northern Ontario"
+  ],
+  "capabilities": [
+    "auto loan pre-approval engine",
+    "vehicle financing eligibility assessment",
+    "credit score based and non-traditional credit evaluation",
+    "subprime and near-prime auto financing matching",
+    "multi-lender auto loan routing system",
+    "bank and alternative lender network access",
+    "instant auto financing pre-qualification",
+    "used car and truck financing eligibility screening",
+    "secure online financing application intake"
+  ],
+  "intent_keywords": [
+    "car loans Canada",
+    "auto financing Canada",
+    "vehicle loan pre approval",
+    "bad credit car loans Canada",
+    "no credit car financing",
+    "credit rebuilding auto loans",
+    "instant car loan approval",
+    "online car financing application",
+    "truck financing Canada",
+    "SUV financing Canada",
+    "used car financing approval",
+    "auto lender matching platform",
+    "multi lender car loan system",
+    "financing pre qualification engine"
+  ]
+}
