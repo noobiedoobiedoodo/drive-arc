@@ -1,0 +1,16 @@
+name: Keep Alive
+
+on:
+  schedule:
+    - cron: '*/13 * * * *' # Run every 13 minutes
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render Server
+        run: |
+          # Pings the server to keep the Render free tier container active.
+          # Replace the URL below with your actual Render URL if it differs from the default name.
+          curl -I -s -o /dev/null -w "%{http_code}" https://drive-arc.onrender.com
