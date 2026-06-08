@@ -12,5 +12,4 @@ jobs:
       - name: Ping Render Server
         run: |
           # Pings the server to keep the Render free tier container active.
-          # Replace the URL below with your actual Render URL if it differs from the default name.
-          curl -I -s -o /dev/null -w "%{http_code}" https://drive-arc.onrender.com
+          curl -I -s -o /dev/null -w "%{http_code}" https://drivearc.ca
