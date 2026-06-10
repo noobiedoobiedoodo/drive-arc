@@ -31,10 +31,13 @@ interface AppState {
   reset: () => void;
 }
 
+const generateLeadId = () => `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
 export const useStore = create<AppState>((set) => ({
   scene: 'ENTRY',
   formData: {
     ...INITIAL_FORM_DATA,
+    id: generateLeadId(),
     vehicle: VEHICLE_TYPES[1].label
   },
   leadCaptured: false,
@@ -76,7 +79,11 @@ export const useStore = create<AppState>((set) => ({
 
   reset: () => set({
     scene: 'ENTRY',
-    formData: INITIAL_FORM_DATA,
+    formData: {
+      ...INITIAL_FORM_DATA,
+      id: generateLeadId(),
+      vehicle: VEHICLE_TYPES[1].label
+    },
     leadCaptured: false,
     currentVehicleIndex: 1,
     isZoomed: false,

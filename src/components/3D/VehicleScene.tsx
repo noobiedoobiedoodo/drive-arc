@@ -66,8 +66,8 @@ const VehicleModel = ({ type, active, position, onClick }: VehicleProps) => {
       color={VEHICLE_COLOR}
       metalness={VEHICLE_MATERIAL_PROPS.metalness}
       roughness={VEHICLE_MATERIAL_PROPS.roughness}
-      emissive={active ? "#0ea5e9" : "#000000"}
-      emissiveIntensity={active ? 0.15 : 0}
+      emissive={active ? "#FF8C00" : "#000000"}
+      emissiveIntensity={active ? 0.2 : 0}
     />
   ), [active]);
 
@@ -85,14 +85,14 @@ const VehicleModel = ({ type, active, position, onClick }: VehicleProps) => {
       
       {active && (
         <>
-          {/* Key light to catch reflections on metallic black paint */}
+          {/* Key light to catch reflections on metallic dark red paint */}
           <pointLight position={[2, 3, 2]} intensity={35} color="#ffffff" />
           
-          {/* Neon Underglow light */}
-          <pointLight position={[0, -0.45, 0]} intensity={45} distance={4} color="#0ea5e9" decay={2} />
+          {/* Neon Underglow light (warm amber/gold) */}
+          <pointLight position={[0, -0.45, 0]} intensity={45} distance={4} color="#FF8C00" decay={2} />
           
-          {/* Back/Rim light to create a purple backdrop glow and highlight the vehicle's silhouette */}
-          <pointLight position={[0, 1, -2.5]} intensity={75} distance={6} color="#7A5CFF" decay={1.5} />
+          {/* Back/Rim light to create a golden backdrop glow and highlight the vehicle's silhouette */}
+          <pointLight position={[0, 1, -2.5]} intensity={75} distance={6} color="#FFA500" decay={1.5} />
         </>
       )}
     </group>

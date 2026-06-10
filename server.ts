@@ -205,22 +205,42 @@ app.post("/api/lead", (req, res) => {
   console.log("💰 LEAD CAPTURED (Revenue Machine):", lead);
   
   const leads = readLeads();
-  const newLead: LeadData = {
-    ...lead,
-    id: `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-    status: lead.status || 'NEW',
-    createdAt: new Date().toISOString()
-  };
+  const existingIndex = lead.id ? leads.findIndex(l => l.id === lead.id) : -1;
 
-  leads.push(newLead);
-  writeLeads(leads);
-  
-  res.status(200).json({ 
-    success: true, 
-    leadId: newLead.id,
-    capturedAt: newLead.createdAt,
-    automationTriggered: ["SMS_SALES", "EMAIL_USER"]
-  });
+  if (existingIndex !== -1) {
+    const existing = leads[existingIndex];
+    leads[existingIndex] = {
+      ...existing,
+      ...lead,
+      id: existing.id,
+      createdAt: existing.createdAt
+    };
+    writeLeads(leads);
+
+    res.status(200).json({
+      success: true,
+      leadId: existing.id,
+      updatedAt: new Date().toISOString(),
+      automationTriggered: ["SMS_SALES", "EMAIL_USER"]
+    });
+  } else {
+    const newLead: LeadData = {
+      ...lead,
+      id: lead.id || `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      status: lead.status || 'NEW',
+      createdAt: new Date().toISOString()
+    };
+
+    leads.push(newLead);
+    writeLeads(leads);
+    
+    res.status(200).json({ 
+      success: true, 
+      leadId: newLead.id,
+      capturedAt: newLead.createdAt,
+      automationTriggered: ["SMS_SALES", "EMAIL_USER"]
+    });
+  }
 });
 
 app.get("/api/auth/google", (req, res) => {

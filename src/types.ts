@@ -6,6 +6,7 @@
 export type Scene = 'ENTRY' | 'VEHICLE_SELECTOR' | 'QUESTION_FLOW' | 'PROCESSING' | 'RESULT' | 'CATALOG' | 'ADMIN' | 'PRIVACY';
 
 export interface FormData {
+  id?: string;
   vehicle: string;
   email: string;
   name: string;

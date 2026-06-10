@@ -1,4 +1,4 @@
-export const VEHICLE_COLOR = '#111111';
+export const VEHICLE_COLOR = '#8B0000';
 export const BRAND_NAME = 'DRIVE ARC';
 export const BRAND_TAGLINE = 'Automotive Intelligence';
 
